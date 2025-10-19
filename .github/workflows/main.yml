@@ -46,7 +46,7 @@ jobs:
       - name: Build with Maven
         run: |
           cd secrets
-          mvn clean package
+          mvn clean package --no-transfer-progress
 
       - name: Upload Artifact
         if: success()
