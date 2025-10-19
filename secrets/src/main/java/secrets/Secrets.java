@@ -1,4 +1,4 @@
-package Secrets;
+package secrets;
 
 public class Secrets {
 	public final static String DB_URL = "jdbc:mysql://db.hridaykh.in:3306/Secrets_DB";

@@ -1,4 +1,4 @@
-package Secrets;
+package secrets;
 
 import java.io.IOException;
 

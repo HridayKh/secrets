@@ -6,16 +6,21 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Secrets.TestServlet;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import secrets.TestServlet;
 import utils.HttpUtil;
 
 @WebServlet("/v1/*")
 public class ApiServlet extends HttpServlet {
+
+	private static final Logger log = LogManager.getLogger(ApiServlet.class);
 	private static final long serialVersionUID = 1L;
 
 	// Route definitions with HTTP method and handler
@@ -24,12 +29,11 @@ public class ApiServlet extends HttpServlet {
 	static {
 		// TEST
 		addRoute("GET", ApiConstants.TEST_URL, (req, resp, params) -> new TestServlet().test(req, resp, params));
-		
-		// TODO: ADD SENTRY -> AUTH
-		
+
 		// HEALTH
 		addRoute("GET", ApiConstants.HEALTH_CHECK, (req, resp, params) -> {
 			HttpUtil.sendJson(resp, HttpServletResponse.SC_OK, "success", "Secrets app is up and running.");
+			log.info("Health Check Accessed");
 		});
 
 	}
