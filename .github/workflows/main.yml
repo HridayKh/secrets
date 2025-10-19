@@ -35,6 +35,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+
+      - name: Set up sentry-cli
+        uses: matbour/setup-sentry-cli@v1
+        with:
+          token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          organization: hriday-jg
+          project: secrets-app
+
       - name: Build with Maven
         run: |
           cd secrets

@@ -40,7 +40,7 @@ public class ApiServlet extends HttpServlet {
 
 	private static void addRoute(String method, String path, RouteHandler handler) {
 		routes.computeIfAbsent(method, k -> new HashMap<>()).put(path, handler);
-	}
+	} 
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
