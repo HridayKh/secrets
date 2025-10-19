@@ -2,6 +2,9 @@ package secrets;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -15,8 +18,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebFilter("/*")
 public class CORSFilter implements Filter {
 
+	private static final Logger log = LogManager.getLogger(CORSFilter.class);
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		log.info("CORS Filter Created.");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -25,7 +31,10 @@ public class CORSFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
 
-		res.setHeader("Access-Control-Allow-Origin", Secrets.FRONT_HOST);
+		// https://api.HridayKh.in/secrets -> https://api.HridayKh.in
+		String front_host = Secrets.FRONT_HOST.split("/")[0] + "//" + Secrets.FRONT_HOST.split("/")[2];
+
+		res.setHeader("Access-Control-Allow-Origin", front_host);
 		res.setHeader("Access-Control-Allow-Methods", "GET, POST");
 		res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 		res.setHeader("Access-Control-Allow-Credentials", "true");
