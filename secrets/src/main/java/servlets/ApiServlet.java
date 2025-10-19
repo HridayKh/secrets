@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.HttpUtil;
 
 @WebServlet("/v1/*")
 public class ApiServlet extends HttpServlet {
@@ -21,7 +22,15 @@ public class ApiServlet extends HttpServlet {
 	private static final Map<String, Map<String, RouteHandler>> routes = new HashMap<>();
 
 	static {
-		addRoute("GET", ApiConstants.TEST_URL, (req, resp, params) -> new TestServlet().test(req, resp));
+		// TEST
+		addRoute("GET", ApiConstants.TEST_URL, (req, resp, params) -> new TestServlet().test(req, resp, params));
+		
+		// TODO: ADD SENTRY -> AUTH
+		
+		// HEALTH
+		addRoute("GET", ApiConstants.HEALTH_CHECK, (req, resp, params) -> {
+			HttpUtil.sendJson(resp, HttpServletResponse.SC_OK, "success", "Secrets app is up and running.");
+		});
 
 	}
 

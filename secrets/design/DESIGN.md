@@ -11,7 +11,7 @@
 
 ## Authentication
 
-### **Header**:
+**Header**:
 
 ```http
 Authorization: ApiKey <api_key>
@@ -36,9 +36,8 @@ Fetches all decrypted secrets for a project environment.
 		"DB_PASS": "hunter2",
 		"API_KEY": "abcd1234"
 	},
-	"status": "ok",
-	"msg": "Fetched all secrets for environment.",
-	"timestamp": "2025-10-19T12:00:00Z"
+	"type": "success",
+	"message": "Fetched all secrets for environment."
 }
 ```
 
@@ -56,9 +55,8 @@ Fetches one specific secret by key.
 	"env": "production",
 	"key": "DB_PASS",
 	"value": "hunter2",
-	"status": "ok",
-	"msg": "Fetched secret value.",
-	"timestamp": "2025-10-19T12:00:00Z"
+	"type": "success",
+	"message": "Fetched secret value."
 }
 ```
 
@@ -84,7 +82,7 @@ Fetches one specific secret by key.
 ### 1.1 List All Projects
 
 ```
-GET /v1/admin/projects
+GET /v1/projects
 ```
 
 **Response:**
@@ -93,24 +91,22 @@ GET /v1/admin/projects
 	"projects": [
 		{
 			"slug": "my-blog",
-			"name": "My Blog Backend",
-			"timestamp": "2025-10-19T12:00:00Z"
+			"name": "My Blog Backend"
 		},
 		{
 			"slug": "auth-system",
-			"name": "Auth Service",
-			"timestamp": "2025-09-10T10:00:00Z"
+			"name": "Auth Service"
 		}
 	],
-	"status": "ok",
-	"msg": "Projects listed."
+	"type": "success",
+	"message": "Projects listed."
 }
 ```
 
 ### 1.2 Create Project
 
 ```
-POST /v1/admin/projects
+POST /v1/projects
 ```
 
 **Body:**
@@ -129,16 +125,15 @@ POST /v1/admin/projects
 	"id": 1,
 	"slug": "my-blog",
 	"name": "My Blog Backend",
-	"status": "ok",
-	"msg": "Project created.",
-	"timestamp": "2025-10-19T12:00:00Z"
+	"type": "success",
+	"message": "Project created."
 }
 ```
 
 ### 1.3 Update Project
 
 ```
-PATCH /v1/admin/projects/{projectSlug}
+PATCH /v1/projects/{projectSlug}
 ```
 
 **Body:**
@@ -157,15 +152,15 @@ PATCH /v1/admin/projects/{projectSlug}
 	"id": 1,
 	"slug": "my-blog",
 	"name": "My Blog Backend",
-	"status": "ok",
-	"msg": "Project updated.",
+	"type": "success",
+	"message": "Project updated.",
 	"created_at": "2025-10-19T12:00:00Z"
 }
 ```
 
-### 1.4 Project SUmmary
+### 1.4 Project Summary
 ```
-GET /v1/admin/projects/{projectSlug}/summary
+GET /v1/projects/{projectSlug}/summary
 ```
 
 **Response:**
@@ -185,8 +180,8 @@ GET /v1/admin/projects/{projectSlug}/summary
       "secrets": ["TEST_DB_URL", "TEST_DB_PASSWORD"]
     }
   ],
-  "status": "ok",
-  "msg": "Project summary received.",
+  "type": "success",
+  "message": "Project summary received.",
   "created_at": "2025-10-19T12:00:00Z"
 }
 ```
@@ -199,7 +194,7 @@ GET /v1/admin/projects/{projectSlug}/summary
 ### 2.1 List Environments
 
 ```
-GET /v1/admin/projects/{projectSlug}/envs
+GET /v1/projects/{projectSlug}/envs
 ```
 
 **Response:**
@@ -208,24 +203,22 @@ GET /v1/admin/projects/{projectSlug}/envs
 	"envs": [
 		{
 			"id": 1,
-			"name": "production",
-			"timestamp": "2025-10-19T12:01:00Z"
+			"name": "production"
 		},
 		{
 			"id": 2,
-			"name": "staging",
-			"timestamp": "2025-10-19T12:01:00Z"
+			"name": "staging"
 		}
 	],
-	"status": "ok",
-	"msg": "Environments listed."
+	"type": "success",
+	"message": "Environments listed."
 }
 ```
 
 ### 2.2 Create Environment
 
 ```
-POST /v1/admin/projects/{projectSlug}/envs
+POST /v1/projects/{projectSlug}/envs
 ```
 
 **Body:**
@@ -242,16 +235,15 @@ POST /v1/admin/projects/{projectSlug}/envs
 {
 	"id": 1,
 	"name": "production",
-	"status": "ok",
-	"msg": "Environment created.",
-	"timestamp": "2025-10-19T12:01:00Z"
+	"type": "success",
+	"message": "Environment created."
 }
 ```
 
 ### 2.3 Update Environment
 
 ```
-PATCH /v1/admin/projects/{projectSlug}/envs/{env}
+PATCH /v1/projects/{projectSlug}/envs/{env}
 ```
 
 **Body:**
@@ -267,9 +259,8 @@ PATCH /v1/admin/projects/{projectSlug}/envs/{env}
 ```json
 {
 	"result": "updated",
-	"status": "ok",
-	"msg": "Environment updated.",
-	"timestamp": "2025-10-19T12:01:00Z"
+	"type": "success",
+	"message": "Environment updated."
 }
 ```
 
@@ -278,7 +269,7 @@ PATCH /v1/admin/projects/{projectSlug}/envs/{env}
 ### 3.1 Add Secret
 
 ```
-POST /v1/admin/projects/{projectSlug}/envs/{env}/secrets
+POST /v1/projects/{projectSlug}/envs/{env}/secrets
 ```
 
 **Body:**
@@ -296,16 +287,15 @@ POST /v1/admin/projects/{projectSlug}/envs/{env}/secrets
 {
 	"id": 1,
 	"key": "DB_PASS",
-	"status": "ok",
-	"msg": "Secret added.",
-	"timestamp": "2025-10-19T12:01:00Z"
+	"type": "success",
+	"message": "Secret added."
 }
 ```
 
 ### 3.2 Update Secret
 
 ```
-PUT /v1/admin/projects/{projectSlug}/envs/{env}/secrets/{key}
+PUT /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 ```
 
 **Body:**
@@ -321,16 +311,15 @@ PUT /v1/admin/projects/{projectSlug}/envs/{env}/secrets/{key}
 ```json
 {
 	"result": "updated",
-	"status": "ok",
-	"msg": "Secret updated.",
-	"timestamp": "2025-10-19T12:01:00Z"
+	"type": "success",
+	"message": "Secret updated."
 }
 ```
 
 ### 3.3 List Secret Keys (no values)
 
 ```
-GET /v1/admin/projects/{projectSlug}/envs/{env}/secrets
+GET /v1/projects/{projectSlug}/envs/{env}/secrets
 ```
 
 **Response:**
@@ -342,9 +331,8 @@ GET /v1/admin/projects/{projectSlug}/envs/{env}/secrets
 		"DB_PASS",
 		"API_KEY"
 	],
-	"status": "ok",
-	"msg": "Secret keys listed.",
-	"timestamp": "2025-10-19T12:01:00Z"
+	"type": "success",
+	"message": "Secret keys listed."
 }
 
 ```
@@ -352,7 +340,7 @@ GET /v1/admin/projects/{projectSlug}/envs/{env}/secrets
 ### 3.4 View Secret Value
 
 ```
-GET /v1/admin/projects/{projectSlug}/envs/{env}/secrets/{key}
+GET /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 ```
 
 **Response:**
@@ -361,16 +349,15 @@ GET /v1/admin/projects/{projectSlug}/envs/{env}/secrets/{key}
 {
 	"key": "DB_PASS",
 	"value": "hunter2",
-	"status": "ok",
-	"msg": "Fetched secret value.",
-	"timestamp": "2025-10-19T12:01:00Z"
+	"type": "success",
+	"message": "Fetched secret value."
 }
 ```
 
 ### 3.5 Delete Secret
 
 ```
-DELETE /v1/admin/projects/{projectSlug}/envs/{env}/secrets/{key}
+DELETE /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 ```
 
 **Response:**
@@ -378,9 +365,8 @@ DELETE /v1/admin/projects/{projectSlug}/envs/{env}/secrets/{key}
 ```json
 {
 	"result": "deleted",
-	"status": "ok",
-	"msg": "Secret deleted.",
-	"timestamp": "2025-10-19T12:01:00Z"
+	"type": "success",
+	"message": "Secret deleted."
 }
 ```
 
@@ -389,7 +375,7 @@ DELETE /v1/admin/projects/{projectSlug}/envs/{env}/secrets/{key}
 ### 4.1 Create API Key**
 
 ```
-POST /v1/admin/projects/{projectSlug}/apikeys
+POST /v1/projects/{projectSlug}/apikeys
 ```
 
 **Body:**
@@ -407,9 +393,8 @@ POST /v1/admin/projects/{projectSlug}/apikeys
 	"id": 3,
 	"name": "ci-deploy",
 	"key_plaintext": "AbCdEfGh12345",
-	"status": "ok",
-	"msg": "API key created. Save the plaintext now; it will not be shown again.",
-	"timestamp": "2025-10-19T12:05:00Z"
+	"type": "success",
+	"message": "API key created. Save the plaintext now; it will not be shown again."
 }
 ```
 
@@ -420,7 +405,7 @@ POST /v1/admin/projects/{projectSlug}/apikeys
 ### 4.2 List API Keys**
 
 ```
-GET /v1/admin/projects/{projectSlug}/apikeys
+GET /v1/projects/{projectSlug}/apikeys
 ```
 
 **Response:**
@@ -430,19 +415,18 @@ GET /v1/admin/projects/{projectSlug}/apikeys
 		{
 			"id": 3,
 			"name": "ci-deploy",
-			"revoked": false,
-			"timestamp": "2025-10-19T12:05:00Z"
+			"revoked": false
 		}
 	],
-	"status": "ok",
-	"msg": "API keys listed."
+	"type": "success",
+	"message": "API keys listed."
 }
 ```
 
 ### 4.3 Revoke API Key**
 
 ```
-DELETE /v1/admin/projects/{projectSlug}/apikeys/{keyId}
+DELETE /v1/projects/{projectSlug}/apikeys/{keyId}
 ```
 
 **Response:**
@@ -450,9 +434,8 @@ DELETE /v1/admin/projects/{projectSlug}/apikeys/{keyId}
 ```json
 {
 	"result": "revoked",
-	"status": "ok",
-	"msg": "API key revoked.",
-	"timestamp": "2025-10-19T12:05:00Z"
+	"type": "success",
+	"message": "API key revoked."
 }
 ```
 
@@ -468,8 +451,7 @@ GET /v1/health
 
 ```json
 {
-	"status": "ok",
-	"msg": "Secrets app is up and running.",
-	"timestamp": "2025-10-19T12:00:00Z"
+	"type": "success",
+	"message": "Secrets app is up and running."
 }
 ```
