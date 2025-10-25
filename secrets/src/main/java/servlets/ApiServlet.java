@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import secrets.TestServlet;
+import servlets.projects.ProjectsCreate;
+import servlets.projects.ProjectsList;
+import servlets.projects.ProjectsUpdate;
 import utils.HttpUtil;
 
 @WebServlet("/v1/*")
@@ -30,9 +33,20 @@ public class ApiServlet extends HttpServlet {
 		// TEST
 		addRoute("GET", ApiConstants.TEST_URL, (req, resp, params) -> new TestServlet().test(req, resp, params));
 
+		// PROJECTS
+		addRoute("GET", ApiConstants.PROJECTS_LIST_ALL,
+				(req, resp, params) -> ProjectsList.listAllProjects(req, resp, params));
+		addRoute("POST", ApiConstants.PROJECTS_CREATE,
+				(req, resp, params) -> ProjectsCreate.createProject(req, resp, params));
+		addRoute("PATCH", ApiConstants.PROJECTS_UPDATE,
+				(req, resp, params) -> ProjectsUpdate.updateProject(req, resp, params));
+		addRoute("GET", ApiConstants.PROJECTS_SUMMARY, (req, resp, params) -> {
+			HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_NOT_IMPLEMENTED, "error", "project summary endpoint not yet implemented but will be after envrioments and secrets.");
+		});
+
 		// HEALTH
 		addRoute("GET", ApiConstants.HEALTH_CHECK, (req, resp, params) -> {
-			HttpUtil.sendJson(resp, HttpServletResponse.SC_OK, "success", "Secrets app is up and running.");
+			HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_OK, "success", "Secrets app is up and running.");
 			log.info("Health Check Accessed");
 		});
 
@@ -40,7 +54,7 @@ public class ApiServlet extends HttpServlet {
 
 	private static void addRoute(String method, String path, RouteHandler handler) {
 		routes.computeIfAbsent(method, k -> new HashMap<>()).put(path, handler);
-	} 
+	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

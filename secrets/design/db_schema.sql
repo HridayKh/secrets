@@ -1,6 +1,3 @@
--- -----------------------------------------------------
--- Table `projects`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projects` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `slug` VARCHAR(64) NOT NULL UNIQUE,
@@ -11,11 +8,6 @@ CREATE TABLE IF NOT EXISTS `projects` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -----------------------------------------------------
--- Table `environments`
--- Each project can have multiple environments (dev, prod, etc.)
--- Composite unique (project_id, name)
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `environments` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `project_id` INT NOT NULL,
@@ -27,11 +19,7 @@ CREATE TABLE IF NOT EXISTS `environments` (
   CONSTRAINT `fk_environments_project` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -----------------------------------------------------
--- Table `secrets`
 -- Stores encrypted secret values per environment
--- Unique per environment for a secret key
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `secrets` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `environment_id` INT NOT NULL,
@@ -46,10 +34,6 @@ CREATE TABLE IF NOT EXISTS `secrets` (
   INDEX `idx_secrets_key` (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -----------------------------------------------------
--- Table `api_keys`
--- API keys used by backend projects to fetch secrets
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `api_keys` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `project_id` INT NOT NULL,
@@ -63,11 +47,7 @@ CREATE TABLE IF NOT EXISTS `api_keys` (
   INDEX `idx_api_keys_project` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- -----------------------------------------------------
--- Table `audit_logs`
--- Tracks actions for security and debugging
 -- `user_id` and `project_id` are nullable because API actions may be unauthenticated user-wise.
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `audit_logs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `actor_type` ENUM('frontend_admin', 'backend_api') NOT NULL,
@@ -86,5 +66,3 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
   INDEX `idx_audit_actor` (`actor_identifier`),
   INDEX `idx_audit_project` (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- End of schema

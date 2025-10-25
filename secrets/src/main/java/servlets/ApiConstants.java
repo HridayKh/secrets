@@ -2,7 +2,6 @@ package servlets;
 
 /**
  * Constants for all API endpoints used in the auth application.
- * This replaces the old ServletHandler URL constants.
  */
 public final class ApiConstants {
 

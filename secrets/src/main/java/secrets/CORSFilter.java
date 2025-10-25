@@ -33,6 +33,7 @@ public class CORSFilter implements Filter {
 
 		// https://api.HridayKh.in/secrets -> https://api.HridayKh.in
 		String front_host = Secrets.FRONT_HOST.split("/")[0] + "//" + Secrets.FRONT_HOST.split("/")[2];
+//		String front_host = "http://localhost:5173";
 
 		res.setHeader("Access-Control-Allow-Origin", front_host);
 		res.setHeader("Access-Control-Allow-Methods", "GET, POST");

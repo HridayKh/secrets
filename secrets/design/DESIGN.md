@@ -86,20 +86,23 @@ GET /v1/projects
 ```
 
 **Response:**
+
 ```json
 {
-	"projects": [
-		{
-			"slug": "my-blog",
-			"name": "My Blog Backend"
-		},
-		{
-			"slug": "auth-system",
-			"name": "Auth Service"
-		}
-	],
-	"type": "success",
-	"message": "Projects listed."
+    "projects": [
+        {
+            "name": "Example App",
+            "description": "Demo project for testing",
+            "slug": "example-app"
+        },
+        {
+            "name": "Mobile API",
+            "description": "Backend for mobile clients",
+            "slug": "mobile-api"
+        }
+    ],
+    "message": "Projects listed.",
+    "type": "success"
 }
 ```
 
@@ -114,7 +117,8 @@ POST /v1/projects
 ```json
 {
 	"slug": "my-blog",
-	"name": "My Blog Backend"
+	"name": "My Blog Backend",
+	"description": "a backend app for blogs"
 }
 ```
 
@@ -122,11 +126,8 @@ POST /v1/projects
 
 ```json
 {
-	"id": 1,
-	"slug": "my-blog",
-	"name": "My Blog Backend",
-	"type": "success",
-	"message": "Project created."
+    "message": "Project Created.",
+    "type": "success"
 }
 ```
 
@@ -137,11 +138,13 @@ PATCH /v1/projects/{projectSlug}
 ```
 
 **Body:**
-> Either `name` or `slug` or both `name` and `slug` can be updated.
+> Either `name` or `slug` or `description` or all can be updated.
+
 ```json
 {
 	"slug": "my-blog",
-	"name": "My Blog Backend"
+	"name": "My Blog Backend",
+	"description": "an entire app for blogs"
 }
 ```
 
@@ -149,12 +152,8 @@ PATCH /v1/projects/{projectSlug}
 
 ```json
 {
-	"id": 1,
-	"slug": "my-blog",
-	"name": "My Blog Backend",
-	"type": "success",
-	"message": "Project updated.",
-	"created_at": "2025-10-19T12:00:00Z"
+    "message": "Project Updated.",
+    "type": "success"
 }
 ```
 

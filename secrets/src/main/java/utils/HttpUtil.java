@@ -22,12 +22,16 @@ public class HttpUtil {
 		return new JSONObject(sb.toString());
 	}
 
-	public static void sendJson(HttpServletResponse resp, int status, String type, String message) throws IOException {
-		resp.setStatus(status);
-		resp.setContentType("application/json");
+	public static void sendSimpleJson(HttpServletResponse resp, int status, String type, String message) throws IOException {
 		JSONObject json = new JSONObject();
 		json.put("message", message);
 		json.put("type", type);
+		sendJson(resp, status, json);
+	}
+
+	public static void sendJson(HttpServletResponse resp, int status, JSONObject json) throws IOException {
+		resp.setStatus(status);
+		resp.setContentType("application/json");
 		resp.getWriter().write(json.toString());
 	}
 
