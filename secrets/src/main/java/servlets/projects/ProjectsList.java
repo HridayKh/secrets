@@ -19,7 +19,7 @@ import utils.HttpUtil;
 public class ProjectsList {
 	private static final Logger log = LogManager.getLogger(ProjectsList.class);
 
-	public static void listAllProjects(HttpServletRequest req, HttpServletResponse resp, Map<String, String> params) throws IOException  {
+	public static void listAllProjects(HttpServletRequest ignoredReq, HttpServletResponse resp, Map<String, String> ignoredParams) throws IOException  {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 		
@@ -40,7 +40,6 @@ public class ProjectsList {
 			
 			projectsJson.put("projects", projectsArr);
 			HttpUtil.sendJson(resp, HttpServletResponse.SC_OK, projectsJson);
-			log.info("" + projectsJson.toString());
 		} catch (SQLException e) {
 			log.catching(e);
 			HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error", "Internal Server Error");

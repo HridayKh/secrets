@@ -217,15 +217,7 @@ GET /v1/projects/{projectSlug}/envs
 ### 2.2 Create Environment
 
 ```
-POST /v1/projects/{projectSlug}/envs
-```
-
-**Body:**
-
-```json
-{
-	"name": "production"
-}
+POST /v1/projects/{projectSlug}/envs/{env}
 ```
 
 **Response:**
@@ -260,6 +252,22 @@ PATCH /v1/projects/{projectSlug}/envs/{env}
 	"result": "updated",
 	"type": "success",
 	"message": "Environment updated."
+}
+```
+
+### 2.4 Delete Environment
+
+```
+DELETE /v1/projects/{projectSlug}/envs/{env}
+```
+
+**Response:**
+
+```json
+{
+	"result": "deleted",
+	"type": "success",
+	"message": "Environment deleted."
 }
 ```
 
@@ -374,7 +382,7 @@ DELETE /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 ### 4.1 Create API Key**
 
 ```
-POST /v1/projects/{projectSlug}/apikeys
+POST /v1/projects/{projectSlug}/apiKeys
 ```
 
 **Body:**
@@ -404,13 +412,13 @@ POST /v1/projects/{projectSlug}/apikeys
 ### 4.2 List API Keys**
 
 ```
-GET /v1/projects/{projectSlug}/apikeys
+GET /v1/projects/{projectSlug}/apiKeys
 ```
 
 **Response:**
 ```json
 {
-	"apikeys": [
+	"apiKeys": [
 		{
 			"id": 3,
 			"name": "ci-deploy",
@@ -425,7 +433,7 @@ GET /v1/projects/{projectSlug}/apikeys
 ### 4.3 Revoke API Key**
 
 ```
-DELETE /v1/projects/{projectSlug}/apikeys/{keyId}
+DELETE /v1/projects/{projectSlug}/apiKeys/{keyId}
 ```
 
 **Response:**

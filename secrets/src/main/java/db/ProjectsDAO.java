@@ -72,9 +72,22 @@ public class ProjectsDAO {
 			if (description != null) {
 				stmt.setString(paramIndex++, description);
 			}
-			stmt.setString(paramIndex++, projSlug);
+			stmt.setString(paramIndex, projSlug);
 			return stmt.executeUpdate() > 0;
 		}
 	}
 
+    public static Project getProjectBySlug(Connection conn, String slug) throws SQLException {
+        String sql = "SELECT * FROM projects WHERE slug=?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, slug);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return Project.parseProject(rs);
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
 }
