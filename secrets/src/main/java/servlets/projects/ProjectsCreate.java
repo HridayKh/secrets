@@ -17,7 +17,7 @@ import utils.HttpUtil;
 public class ProjectsCreate {
 	private static final Logger log = LogManager.getLogger(ProjectsCreate.class);
 
-	public static void createProject(HttpServletRequest req, HttpServletResponse resp, Map<String, String> params)
+	public static void createProject(HttpServletRequest req, HttpServletResponse resp, Map<String, String> ignoredParams)
 			throws IOException {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
@@ -29,21 +29,21 @@ public class ProjectsCreate {
 			String name = body.optString("name", null);
 			String description = body.optString("description", null);
 
-			if (slug == null || slug.isBlank() || slug.isEmpty()) {
+			if (slug == null || slug.isBlank()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error",
 						"Project Creation slug not Provided.");
 				log.info("Project Creation slug not Provided.");
 				return;
 			}
 			
-			if (name == null || name.isBlank() || name.isEmpty()) {
+			if (name == null || name.isBlank()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error",
 						"Project Creation name not Provided.");
 				log.info("Project Creation name not Provided.");
 				return;
 			}
 			
-			if (description == null || description.isBlank() || description.isEmpty()) {
+			if (description == null || description.isBlank()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error",
 						"Project Creation description not Provided.");
 				log.info("Project Creation description not Provided.");

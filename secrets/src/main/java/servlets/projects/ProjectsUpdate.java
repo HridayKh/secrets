@@ -31,11 +31,11 @@ public class ProjectsUpdate {
 			String name = body.optString("name", null);
 			String description = body.optString("description", null);
 
-			if (slug == null || slug.isBlank() || slug.isEmpty())
+			if (slug == null || slug.isBlank())
 				slug = null;
-			if (name == null || name.isBlank() || name.isEmpty())
+			if (name == null || name.isBlank())
 				name = null;
-			if (description == null || description.isBlank() || description.isEmpty())
+			if (description == null || description.isBlank())
 				description = null;
 
 			boolean projUpdated = db.ProjectsDAO.updateProject(conn, projSlug, slug, name, description);

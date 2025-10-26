@@ -66,16 +66,14 @@ Fetches one specific secret by key.
 * They support creating, editing, and deleting projects, environments, secrets, and API keys.
 
 ## Authentication
-> Note: Refer to the [Auth App Github](https://github.com/HridayKh/auth) for more info about my auth system.
+> Note: Refer to the [Auth App GitHub](https://github.com/HridayKh/auth) for more info about my auth system.
 
 * Frontend has an auth cookie from your custom auth app, if not, redirect to auth app for login.
 * Each admin endpoint checks for this auth cookie.
 * Admin endpoints performs a server-to-server request to auth app to get the `metadata`/`permissons` of the acc in the cookie.
-* check if the `metadata`/`permissons` contain say that they an admin/main acc or are verified to use this secrets manager 
+* check if the `metadata`/`permissons` says that they are an admin/main acc or are verified to use this secrets manager 
 
-> Note: The `metadata`/`permissons` of a account in the auth app are just custom json to store extra values about an account and managed manually or by other apps such as this (secrets manager) one.  
-
-
+> Note: The `metadata`/`permissons` of an account in the auth app are just custom json to store extra values about an account and managed manually or by other apps such as this (secrets manager) one.
 
 ## 1. Projects
 
@@ -169,6 +167,7 @@ GET /v1/projects/{projectSlug}/summary
   "id": 1,
   "slug": "my-blog",
   "name": "My Blog Backend",
+  "description": "an entire app for blogs",
   "environments": [
     {
       "name": "production",
@@ -180,8 +179,7 @@ GET /v1/projects/{projectSlug}/summary
     }
   ],
   "type": "success",
-  "message": "Project summary received.",
-  "created_at": "2025-10-19T12:00:00Z"
+  "message": "Project summary received."
 }
 ```
 
@@ -224,10 +222,8 @@ POST /v1/projects/{projectSlug}/envs/{env}
 
 ```json
 {
-	"id": 1,
-	"name": "production",
-	"type": "success",
-	"message": "Environment created."
+  "message": "Environment Created.",
+  "type": "success"
 }
 ```
 
@@ -249,9 +245,8 @@ PATCH /v1/projects/{projectSlug}/envs/{env}
 
 ```json
 {
-	"result": "updated",
-	"type": "success",
-	"message": "Environment updated."
+  "message": "Environment Updated.",
+  "type": "success"
 }
 ```
 
@@ -397,11 +392,11 @@ POST /v1/projects/{projectSlug}/apiKeys
 
 ```json
 {
-	"id": 3,
-	"name": "ci-deploy",
-	"key_plaintext": "AbCdEfGh12345",
-	"type": "success",
-	"message": "API key created. Save the plaintext now; it will not be shown again."
+  "id": 3,
+  "name": "ci-deploy",
+  "key_plaintext": "AbCdEfGh12345",
+  "type": "success",
+  "message": "API key created. Save the plaintext now; it will not be shown again."
 }
 ```
 
