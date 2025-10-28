@@ -1,4 +1,5 @@
 # Secrets Service API Design (v1)
+
 * **Secrets App Base URL:** `https://api.hridaykh.in/secrets`
 
 # Backend / Other Projects API
@@ -17,13 +18,16 @@ Authorization: ApiKey <api_key>
 ## **Endpoints**
 
 ### **1. Get all secrets for an environment**
+
 ```
 GET /v1/secrets/{projectSlug}/{env}
 ```
+
 **Description:**
 Fetches all decrypted secrets for a project environment.
 
 **Response:**
+
 ```json
 {
   "DB_USER": "root",
@@ -37,12 +41,14 @@ Fetches all decrypted secrets for a project environment.
 ```
 GET /v1/secrets/{projectSlug}/{env}/{secretKey}
 ```
+
 **Description:**
 Fetches one specific secret by key.
 **Response:**
+
 ```json
 {
-	"value": "hunter2"
+  "value": "hunter2"
 }
 ```
 
@@ -52,14 +58,17 @@ Fetches one specific secret by key.
 * They support creating, editing, and deleting projects, environments, secrets, and API keys.
 
 ## Authentication
+
 > Note: Refer to the [Auth App GitHub](https://github.com/HridayKh/auth) for more info about my auth system.
 
 * Frontend has an auth cookie from your custom auth app, if not, redirect to auth app for login.
 * Each admin endpoint checks for this auth cookie.
-* Admin endpoints performs a server-to-server request to auth app to get the `metadata`/`permissons` of the acc in the cookie.
-* check if the `metadata`/`permissons` says that they are an admin/main acc or are verified to use this secrets manager 
+* Admin endpoints performs a server-to-server request to auth app to get the `metadata`/`permissons` of the acc in the
+  cookie.
+* check if the `metadata`/`permissons` says that they are an admin/main acc or are verified to use this secrets manager
 
-> Note: The `metadata`/`permissons` of an account in the auth app are just custom json to store extra values about an account and managed manually or by other apps such as this (secrets manager) one.
+> Note: The `metadata`/`permissons` of an account in the auth app are just custom json to store extra values about an
+> account and managed manually or by other apps such as this (secrets manager) one.
 
 ## 1. Projects
 
@@ -102,9 +111,9 @@ POST /v1/projects
 
 ```json
 {
-	"slug": "my-blog",
-	"name": "My Blog Backend",
-	"description": "a backend app for blogs"
+  "slug": "my-blog",
+  "name": "My Blog Backend",
+  "description": "a backend app for blogs"
 }
 ```
 
@@ -112,8 +121,8 @@ POST /v1/projects
 
 ```json
 {
-    "message": "Project Created.",
-    "type": "success"
+  "message": "Project Created.",
+  "type": "success"
 }
 ```
 
@@ -128,9 +137,9 @@ PATCH /v1/projects/{projectSlug}
 
 ```json
 {
-	"slug": "my-blog",
-	"name": "My Blog Backend",
-	"description": "an entire app for blogs"
+  "slug": "my-blog",
+  "name": "My Blog Backend",
+  "description": "an entire app for blogs"
 }
 ```
 
@@ -138,12 +147,13 @@ PATCH /v1/projects/{projectSlug}
 
 ```json
 {
-    "message": "Project Updated.",
-    "type": "success"
+  "message": "Project Updated.",
+  "type": "success"
 }
 ```
 
 ### 1.4 Project Summary
+
 ```
 GET /v1/projects/{projectSlug}/summary
 ```
@@ -159,11 +169,17 @@ GET /v1/projects/{projectSlug}/summary
   "environments": [
     {
       "name": "production",
-      "secrets": ["DB_URL", "DB_PASSWORD"]
+      "secrets": [
+        "DB_URL",
+        "DB_PASSWORD"
+      ]
     },
     {
       "name": "staging",
-      "secrets": ["TEST_DB_URL", "TEST_DB_PASSWORD"]
+      "secrets": [
+        "TEST_DB_URL",
+        "TEST_DB_PASSWORD"
+      ]
     }
   ],
   "type": "success",
@@ -172,6 +188,7 @@ GET /v1/projects/{projectSlug}/summary
 ```
 
 ### 1.5 Delete Project
+
 > projects cant be deleted for now to avoid accidental data loss.
 
 ## 2. Environment
@@ -183,20 +200,21 @@ GET /v1/projects/{projectSlug}/envs
 ```
 
 **Response:**
+
 ```json
 {
-	"envs": [
-		{
-			"id": 1,
-			"name": "production"
-		},
-		{
-			"id": 2,
-			"name": "staging"
-		}
-	],
-	"type": "success",
-	"message": "Environments listed."
+  "envs": [
+    {
+      "id": 1,
+      "name": "production"
+    },
+    {
+      "id": 2,
+      "name": "staging"
+    }
+  ],
+  "type": "success",
+  "message": "Environments listed."
 }
 ```
 
@@ -210,7 +228,7 @@ POST /v1/projects/{projectSlug}/envs
 
 ```json
 {
-    "name": "production"
+  "name": "production"
 }
 ```
 
@@ -233,7 +251,7 @@ PATCH /v1/projects/{projectSlug}/envs/{env}
 
 ```json
 {
-	"name": "production"
+  "name": "production"
 }
 ```
 
@@ -256,61 +274,14 @@ DELETE /v1/projects/{projectSlug}/envs/{env}
 
 ```json
 {
-	"type": "success",
-	"message": "Environment deleted."
+  "type": "success",
+  "message": "Environment deleted."
 }
 ```
 
 ## 3. Secrets
 
-### 3.1 Add Secret
-
-```
-POST /v1/projects/{projectSlug}/envs/{env}/secrets
-```
-
-**Body:**
-
-```json
-{
-	"key": "DB_PASS",
-	"value": "hunter2"
-}
-```
-
-**Response:**
-
-```json
-{
-	"type": "success",
-	"message": "Secret added."
-}
-```
-
-### 3.2 Update Secret
-
-```
-PUT /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
-```
-
-**Body:**
-
-```json
-{
-	"value": "hunter2"
-}
-```
-
-**Response:**
-
-```json
-{
-	"type": "success",
-	"message": "Secret updated."
-}
-```
-
-### 3.3 List Secret Keys
+### 3.1 List Secret Keys
 
 ```
 GET /v1/projects/{projectSlug}/envs/{env}/secrets
@@ -320,18 +291,42 @@ GET /v1/projects/{projectSlug}/envs/{env}/secrets
 
 ```json
 {
-	"keys": [
-		"DB_USER",
-		"DB_PASS",
-		"API_KEY"
-	],
-	"type": "success",
-	"message": "Secret keys listed."
+  "keys": [
+    "DB_USER",
+    "DB_PASS",
+    "API_KEY"
+  ],
+  "type": "success",
+  "message": "Secret keys listed."
 }
 
 ```
 
-### 3.4 View Secret Value
+### 3.2 Add Secret
+
+```
+POST /v1/projects/{projectSlug}/envs/{env}/secrets
+```
+
+**Body:**
+
+```json
+{
+  "key": "DB_PASS",
+  "value": "hunter2"
+}
+```
+
+**Response:**
+
+```json
+{
+  "type": "success",
+  "message": "Secret added."
+}
+```
+
+### 3.3 View Secret Value
 
 ```
 GET /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
@@ -341,10 +336,36 @@ GET /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 
 ```json
 {
-	"key": "DB_PASS",
-	"value": "hunter2",
-	"type": "success",
-	"message": "Fetched secret value."
+  "key": "DB_PASS",
+  "value": "hunter2",
+  "type": "success",
+  "message": "Fetched secret value."
+}
+```
+
+### 3.4 Update Secret
+
+```
+PUT /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
+```
+
+> Only `value` can be updated.  
+> To change the name, create a new secret and delete old one.
+
+**Body:**
+
+```json
+{
+  "value": "hunter2"
+}
+```
+
+**Response:**
+
+```json
+{
+  "type": "success",
+  "message": "Secret Updated."
 }
 ```
 
@@ -358,8 +379,8 @@ DELETE /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 
 ```json
 {
-	"type": "success",
-	"message": "Secret deleted."
+  "type": "success",
+  "message": "Secret deleted."
 }
 ```
 
@@ -375,7 +396,7 @@ POST /v1/projects/{projectSlug}/apiKeys
 
 ```json
 {
-	"name": "ci-deploy"
+  "name": "ci-deploy"
 }
 ```
 
@@ -393,8 +414,6 @@ POST /v1/projects/{projectSlug}/apiKeys
 
 > The plaintext key is shown **only once**. After that, only its hash remains stored.
 
-
-
 ### 4.2 List API Keys**
 
 ```
@@ -402,17 +421,18 @@ GET /v1/projects/{projectSlug}/apiKeys
 ```
 
 **Response:**
+
 ```json
 {
-	"apiKeys": [
-		{
-			"id": 3,
-			"name": "ci-deploy",
-			"revoked": false
-		}
-	],
-	"type": "success",
-	"message": "API keys listed."
+  "apiKeys": [
+    {
+      "id": 3,
+      "name": "ci-deploy",
+      "revoked": false
+    }
+  ],
+  "type": "success",
+  "message": "API keys listed."
 }
 ```
 
@@ -426,9 +446,9 @@ DELETE /v1/projects/{projectSlug}/apiKeys/{keyId}
 
 ```json
 {
-	"result": "revoked",
-	"type": "success",
-	"message": "API key revoked."
+  "result": "revoked",
+  "type": "success",
+  "message": "API key revoked."
 }
 ```
 
@@ -439,11 +459,12 @@ DELETE /v1/projects/{projectSlug}/apiKeys/{keyId}
 ```
 GET /v1/health
 ```
+
 **Response:**
 
 ```json
 {
-	"type": "success",
-	"message": "Secrets app is up and running."
+  "type": "success",
+  "message": "Secrets app is up and running."
 }
 ```

@@ -1,24 +1,23 @@
 package servlets.projects;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+import secrets.Secrets;
+import utils.HttpUtil;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.json.JSONObject;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import secrets.Secrets;
-import utils.HttpUtil;
-
 public class ProjectsCreate {
 	private static final Logger log = LogManager.getLogger(ProjectsCreate.class);
 
 	public static void createProject(HttpServletRequest req, HttpServletResponse resp, Map<String, String> ignoredParams)
-			throws IOException {
+		throws IOException {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 
@@ -31,22 +30,19 @@ public class ProjectsCreate {
 
 			if (slug == null || slug.isBlank()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error",
-						"Project Creation slug not Provided.");
-				log.info("Project Creation slug not Provided.");
+					"Project Creation slug not Provided.");
 				return;
 			}
-			
+
 			if (name == null || name.isBlank()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error",
-						"Project Creation name not Provided.");
-				log.info("Project Creation name not Provided.");
+					"Project Creation name not Provided.");
 				return;
 			}
-			
+
 			if (description == null || description.isBlank()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error",
-						"Project Creation description not Provided.");
-				log.info("Project Creation description not Provided.");
+					"Project Creation description not Provided.");
 				return;
 			}
 
@@ -54,16 +50,15 @@ public class ProjectsCreate {
 
 			if (projCreated) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_CREATED, "success", "Project Created.");
-				log.info("Project Created.");
 			} else {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error",
-						"Unable to Create Project.");
+					"Unable to Create Project.");
 				log.warn("Unable to Create Project.");
 			}
 		} catch (SQLException e) {
 			log.catching(e);
 			HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error",
-					"Internal Server Error");
+				"Internal Server Error");
 		}
 
 	}

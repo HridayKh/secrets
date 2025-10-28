@@ -24,7 +24,7 @@ public final class ApiConstants {
 	public static final String ENVS_DELETE = "/v1/projects/{projectSlug}/envs/{env}"; // DELETE
 
 	// SECRETS
-	public static final String SECRETS_LIST    = "/v1/projects/{projectSlug}/envs/{env}/secrets"; // GET
+	public static final String SECRETS_KEYS    = "/v1/projects/{projectSlug}/envs/{env}/secrets"; // GET
 	public static final String SECRETS_ADD     = "/v1/projects/{projectSlug}/envs/{env}/secrets"; // POST
 	public static final String SECRETS_GET_VAL = "/v1/projects/{projectSlug}/envs/{env}/secrets/{key}"; // GET
 	public static final String SECRETS_UPDATE  = "/v1/projects/{projectSlug}/envs/{env}/secrets/{key}"; // PUT

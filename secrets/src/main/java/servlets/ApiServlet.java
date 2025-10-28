@@ -1,29 +1,29 @@
 // java
 package servlets;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import secrets.TestServlet;
+import servlets.enviroments.EnvCreate;
 import servlets.enviroments.EnvDelete;
 import servlets.enviroments.EnvList;
-import servlets.enviroments.EnvCreate;
 import servlets.enviroments.EnvUpdate;
 import servlets.projects.ProjectsCreate;
 import servlets.projects.ProjectsList;
 import servlets.projects.ProjectsUpdate;
+import servlets.secrets.*;
 import utils.HttpUtil;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @WebServlet("/v1/*")
 public class ApiServlet extends HttpServlet {
@@ -50,7 +50,11 @@ public class ApiServlet extends HttpServlet {
 		addRoute("DELETE", ApiConstants.ENVS_DELETE, EnvDelete::deleteEnv);
 
 		// SECRETS
-		addRoute("GET", ApiConstants.SECRETS_LIST, EnvDelete::deleteEnv);
+		addRoute("GET", ApiConstants.SECRETS_KEYS, SecretsList::listAllSecrets);
+		addRoute("POST", ApiConstants.SECRETS_ADD, SecretsCreate::createSecret);
+		addRoute("GET", ApiConstants.SECRETS_GET_VAL, SecretsGet::getSecret);
+		addRoute("PUT", ApiConstants.SECRETS_UPDATE, SecretsUpdate::updateSecret);
+		addRoute("DELETE", ApiConstants.SECRETS_DELETE, SecretsDelete::deleteSecret);
 
 		// HEALTH
 		addRoute("GET", ApiConstants.HEALTH_CHECK, (req, resp, params) -> {
