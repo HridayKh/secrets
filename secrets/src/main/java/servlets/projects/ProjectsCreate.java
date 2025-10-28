@@ -53,7 +53,7 @@ public class ProjectsCreate {
 			boolean projCreated = db.ProjectsDAO.createProject(conn, slug, name, description);
 
 			if (projCreated) {
-				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_OK, "success", "Project Created.");
+				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_CREATED, "success", "Project Created.");
 				log.info("Project Created.");
 			} else {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "error",

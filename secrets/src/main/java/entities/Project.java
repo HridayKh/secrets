@@ -8,12 +8,12 @@ import java.sql.ResultSet;
 public class Project {
     private static final Logger log = LogManager.getLogger(Project.class);
 
-    public int id;
-    public String slug;
-    public String name;
-    public String description;
-    public String createdAt;
-    public String updatedAt;
+    public final int id;
+    public final String slug;
+    public final String name;
+    public final String description;
+    public final String createdAt;
+    public final String updatedAt;
 
     public Project(int id, String slug, String name, String description, String createdAt, String updatedAt) {
         this.id = id;

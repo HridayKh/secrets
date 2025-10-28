@@ -32,6 +32,7 @@ public class ProjectsList {
 			JSONArray projectsArr = new JSONArray();
 			for(Project p : projects) {
 				JSONObject pJson = new JSONObject();
+				pJson.put("id", p.id);
 				pJson.put("slug", p.slug);
 				pJson.put("name", p.name);
 				pJson.put("description", p.description);

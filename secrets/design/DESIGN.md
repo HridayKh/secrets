@@ -1,8 +1,5 @@
-# 🗝️ **Secrets Service API Design (v1)**
-
+# Secrets Service API Design (v1)
 * **Secrets App Base URL:** `https://api.hridaykh.in/secrets`
-
-
 
 # Backend / Other Projects API
 
@@ -29,15 +26,9 @@ Fetches all decrypted secrets for a project environment.
 **Response:**
 ```json
 {
-	"project": "my-blog",
-	"env": "production",
-	"secrets": {
-		"DB_USER": "root",
-		"DB_PASS": "hunter2",
-		"API_KEY": "abcd1234"
-	},
-	"type": "success",
-	"message": "Fetched all secrets for environment."
+  "DB_USER": "root",
+  "DB_PASS": "hunter2",
+  "API_KEY": "abcd1234"
 }
 ```
 
@@ -51,16 +42,11 @@ Fetches one specific secret by key.
 **Response:**
 ```json
 {
-	"project": "my-blog",
-	"env": "production",
-	"key": "DB_PASS",
-	"value": "hunter2",
-	"type": "success",
-	"message": "Fetched secret value."
+	"value": "hunter2"
 }
 ```
 
-# **Admin / Frontend API**
+# Admin / Frontend API
 
 * These endpoints are used by the **management UI** (which authenticates using your custom auth app’s cookie).
 * They support creating, editing, and deleting projects, environments, secrets, and API keys.
@@ -87,20 +73,22 @@ GET /v1/projects
 
 ```json
 {
-    "projects": [
-        {
-            "name": "Example App",
-            "description": "Demo project for testing",
-            "slug": "example-app"
-        },
-        {
-            "name": "Mobile API",
-            "description": "Backend for mobile clients",
-            "slug": "mobile-api"
-        }
-    ],
-    "message": "Projects listed.",
-    "type": "success"
+  "projects": [
+    {
+      "id": 1,
+      "name": "Example App",
+      "description": "Demo project for testing",
+      "slug": "example-app"
+    },
+    {
+      "id": 2,
+      "name": "Mobile API",
+      "description": "Backend for mobile clients",
+      "slug": "mobile-api"
+    }
+  ],
+  "message": "Projects listed.",
+  "type": "success"
 }
 ```
 
@@ -215,7 +203,15 @@ GET /v1/projects/{projectSlug}/envs
 ### 2.2 Create Environment
 
 ```
-POST /v1/projects/{projectSlug}/envs/{env}
+POST /v1/projects/{projectSlug}/envs
+```
+
+**Body:**
+
+```json
+{
+    "name": "production"
+}
 ```
 
 **Response:**
@@ -260,13 +256,12 @@ DELETE /v1/projects/{projectSlug}/envs/{env}
 
 ```json
 {
-	"result": "deleted",
 	"type": "success",
 	"message": "Environment deleted."
 }
 ```
 
-## 3. Secret
+## 3. Secrets
 
 ### 3.1 Add Secret
 
@@ -287,8 +282,6 @@ POST /v1/projects/{projectSlug}/envs/{env}/secrets
 
 ```json
 {
-	"id": 1,
-	"key": "DB_PASS",
 	"type": "success",
 	"message": "Secret added."
 }
@@ -312,13 +305,12 @@ PUT /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 
 ```json
 {
-	"result": "updated",
 	"type": "success",
 	"message": "Secret updated."
 }
 ```
 
-### 3.3 List Secret Keys (no values)
+### 3.3 List Secret Keys
 
 ```
 GET /v1/projects/{projectSlug}/envs/{env}/secrets
@@ -366,13 +358,12 @@ DELETE /v1/projects/{projectSlug}/envs/{env}/secrets/{key}
 
 ```json
 {
-	"result": "deleted",
 	"type": "success",
 	"message": "Secret deleted."
 }
 ```
 
-## 4. **API Key**
+## 4. API Key
 
 ### 4.1 Create API Key**
 
@@ -440,7 +431,6 @@ DELETE /v1/projects/{projectSlug}/apiKeys/{keyId}
 	"message": "API key revoked."
 }
 ```
-
 
 # Health Check
 

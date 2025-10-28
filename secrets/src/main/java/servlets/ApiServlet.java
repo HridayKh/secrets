@@ -49,6 +49,9 @@ public class ApiServlet extends HttpServlet {
 		addRoute("PATCH", ApiConstants.ENVS_UPDATE, EnvUpdate::updateEnv);
 		addRoute("DELETE", ApiConstants.ENVS_DELETE, EnvDelete::deleteEnv);
 
+		// SECRETS
+		addRoute("GET", ApiConstants.SECRETS_LIST, EnvDelete::deleteEnv);
+
 		// HEALTH
 		addRoute("GET", ApiConstants.HEALTH_CHECK, (req, resp, params) -> {
 			HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_OK, "success", "Secrets app is up and running.");

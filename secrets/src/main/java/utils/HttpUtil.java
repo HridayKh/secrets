@@ -1,15 +1,16 @@
 package utils;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import org.json.JSONObject;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 public class HttpUtil {
-
+	private static final Logger log = LogManager.getLogger(HttpUtil.class);
 	public static JSONObject readBodyJSON(HttpServletRequest req) {
 		StringBuilder sb = new StringBuilder();
 		try (BufferedReader reader = req.getReader()) {
@@ -17,7 +18,7 @@ public class HttpUtil {
 			while ((line = reader.readLine()) != null)
 				sb.append(line);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.catching(e);
 		}
 		return new JSONObject(sb.toString());
 	}

@@ -6,13 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 import entities.Project;
 
 public class ProjectsDAO {
-	private static final Logger log = LogManager.getLogger(ProjectsDAO.class);
+//	private static final Logger log = LogManager.getLogger(ProjectsDAO.class);
 
 	public static Project[] getAllProjects(Connection conn) throws SQLException {
 		String sql = "SELECT * FROM projects";
@@ -60,7 +60,6 @@ public class ProjectsDAO {
 		if (!fieldAdded)
 			return true;
 		sql += " WHERE slug=?";
-		log.info("DEBUG SQL: " + sql);
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			int paramIndex = 1;
 			if (slug != null) {

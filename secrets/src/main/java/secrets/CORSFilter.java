@@ -21,12 +21,12 @@ public class CORSFilter implements Filter {
 	private static final Logger log = LogManager.getLogger(CORSFilter.class);
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+	public void init(FilterConfig filterConfig) {
 		log.info("CORS Filter Created.");
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+		throws IOException, ServletException {
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -40,7 +40,7 @@ public class CORSFilter implements Filter {
 		res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 		res.setHeader("Access-Control-Allow-Credentials", "true");
 		res.setHeader("Access-Control-Max-Age", "3600");
-		if ("OPTIONS".equalsIgnoreCase(((jakarta.servlet.http.HttpServletRequest) req).getMethod())) {
+		if ("OPTIONS".equalsIgnoreCase(req.getMethod())) {
 			res.setStatus(HttpServletResponse.SC_OK);
 			return;
 		}
@@ -50,5 +50,6 @@ public class CORSFilter implements Filter {
 
 	@Override
 	public void destroy() {
+		log.info("CORS Filter Destroyed.");
 	}
 }

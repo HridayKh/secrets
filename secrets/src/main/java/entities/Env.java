@@ -9,11 +9,11 @@ public class Env {
 
     private static final Logger log = LogManager.getLogger(Env.class);
 
-    public int id;
-    public int projectId;
-    public String name;
-    public String createdAt;
-    public String updatedAt;
+    public final int id;
+    public final int projectId;
+    public final String name;
+    public final String createdAt;
+    public final String updatedAt;
 
     public Env(int id, int projectId, String name, String createdAt, String updatedAt) {
         this.id = id;
