@@ -11,8 +11,9 @@ public final class ApiConstants {
 	public static final String PROJECTS_LIST_ALL = "/v1/projects"; // GET
 
 	// BACKEND
-//    public static final String BACKEND_GET_ALL_SECRETS     = "/v1/secrets/{projectSlug}/{env}"; // GET
-//    public static final String BACKEND_GET_SPECIFIC_SECRET = "/v1/secrets/{projectSlug}/{env}/{secretKey}"; // GET
+	public static final String BACKEND_GET_ALL_SECRETS = "/v1/secrets/{projectSlug}/{env}"; // GET
+
+	// PROJECTS
 	public static final String PROJECTS_CREATE = "/v1/projects"; // POST
 	public static final String PROJECTS_UPDATE = "/v1/projects/{projectSlug}"; // PATCH
 	public static final String PROJECTS_SUMMARY = "/v1/projects/{projectSlug}/summary"; // GET
@@ -24,17 +25,17 @@ public final class ApiConstants {
 	public static final String ENVS_DELETE = "/v1/projects/{projectSlug}/envs/{env}"; // DELETE
 
 	// SECRETS
-	public static final String SECRETS_KEYS    = "/v1/projects/{projectSlug}/envs/{env}/secrets"; // GET
-	public static final String SECRETS_ADD     = "/v1/projects/{projectSlug}/envs/{env}/secrets"; // POST
+	public static final String SECRETS_KEYS = "/v1/projects/{projectSlug}/envs/{env}/secrets"; // GET
+	public static final String SECRETS_ADD = "/v1/projects/{projectSlug}/envs/{env}/secrets"; // POST
 	public static final String SECRETS_GET_VAL = "/v1/projects/{projectSlug}/envs/{env}/secrets/{key}"; // GET
-	public static final String SECRETS_UPDATE  = "/v1/projects/{projectSlug}/envs/{env}/secrets/{key}"; // PUT
-	public static final String SECRETS_DELETE  = "/v1/projects/{projectSlug}/envs/{env}/secrets/{key}"; // DELETE
+	public static final String SECRETS_UPDATE = "/v1/projects/{projectSlug}/envs/{env}/secrets/{key}"; // PUT
+	public static final String SECRETS_DELETE = "/v1/projects/{projectSlug}/envs/{env}/secrets/{key}"; // DELETE
 
-	/*    // API KEYS
-	    public static final String API_KEYS_LIST   = "/v1/projects/{projectSlug}/apiKeys"; // GET
-	    public static final String API_KEYS_CREATE = "/v1/projects/{projectSlug}/apiKeys"; // POST
-		public static final String API_KEYS_REVOKE = "/v1/projects/{projectSlug}/apiKeys/{keyId}"; // DELETE
-	*/
+	// API KEYS
+	public static final String API_KEYS_LIST = "/v1/projects/{projectSlug}/apiKeys"; // GET
+	public static final String API_KEYS_CREATE = "/v1/projects/{projectSlug}/apiKeys"; // POST
+	public static final String API_KEYS_REVOKE = "/v1/projects/{projectSlug}/apiKeys/{keyId}"; // DELETE
+
 	// HEALTH
 	public static final String HEALTH_CHECK = "/v1/health"; // GET
 

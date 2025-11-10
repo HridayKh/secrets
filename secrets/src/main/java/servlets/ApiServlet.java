@@ -13,6 +13,9 @@ import servlets.enviroments.EnvCreate;
 import servlets.enviroments.EnvDelete;
 import servlets.enviroments.EnvList;
 import servlets.enviroments.EnvUpdate;
+import servlets.keys.KeyCreate;
+import servlets.keys.KeyDelete;
+import servlets.keys.KeyList;
 import servlets.projects.ProjectsCreate;
 import servlets.projects.ProjectsList;
 import servlets.projects.ProjectsUpdate;
@@ -34,8 +37,11 @@ public class ApiServlet extends HttpServlet {
 	private static final Map<String, Map<String, RouteHandler>> routes = new HashMap<>();
 
 	static {
-		// TEST
+		// TEST BackendManager
 		addRoute("GET", ApiConstants.TEST_URL, TestServlet::test);
+
+		// BACKEND
+		addRoute("GET", ApiConstants.BACKEND_GET_ALL_SECRETS, BackendManager::getAllSecrets);
 
 		// PROJECTS
 		addRoute("GET", ApiConstants.PROJECTS_LIST_ALL, ProjectsList::listAllProjects);
@@ -55,6 +61,11 @@ public class ApiServlet extends HttpServlet {
 		addRoute("GET", ApiConstants.SECRETS_GET_VAL, SecretsGet::getSecret);
 		addRoute("PUT", ApiConstants.SECRETS_UPDATE, SecretsUpdate::updateSecret);
 		addRoute("DELETE", ApiConstants.SECRETS_DELETE, SecretsDelete::deleteSecret);
+
+		// API KEYS
+		addRoute("POST", ApiConstants.API_KEYS_CREATE, KeyCreate::createKey);
+		addRoute("GET", ApiConstants.API_KEYS_LIST, KeyList::listAllKeys);
+		addRoute("DELETE", ApiConstants.API_KEYS_REVOKE, KeyDelete::deleteKey);
 
 		// HEALTH
 		addRoute("GET", ApiConstants.HEALTH_CHECK, (req, resp, params) -> {
