@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import entities.Project;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import secrets.Secrets;
+import db.dbSecrets;
 import utils.HttpUtil;
 
 public class ProjectsList {
@@ -23,7 +23,7 @@ public class ProjectsList {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 		
-		try (Connection conn = Secrets.getConnection()) {
+		try (Connection conn = dbSecrets.getConnection()) {
 			Project[] projects = db.ProjectsDAO.getAllProjects(conn);
 			JSONObject projectsJson = new JSONObject();
 			projectsJson.put("message", "Projects listed.");

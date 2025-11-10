@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import secrets.Secrets;
+import db.dbSecrets;
 import utils.HttpUtil;
 
 public class ProjectsUpdate {
@@ -22,7 +22,7 @@ public class ProjectsUpdate {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 
-		try (Connection conn = Secrets.getConnection()) {
+		try (Connection conn = dbSecrets.getConnection()) {
 
 			String projSlug = params.get("projectSlug");
 

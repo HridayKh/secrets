@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import secrets.Secrets;
+import db.dbSecrets;
 import utils.HttpUtil;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class SecretsDelete {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 
-		try (Connection conn = Secrets.getConnection()) {
+		try (Connection conn = dbSecrets.getConnection()) {
 			String projectSlug = params.get("projectSlug");
 			if (projectSlug == null || projectSlug.isEmpty()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error", "projectSlug is missing.");

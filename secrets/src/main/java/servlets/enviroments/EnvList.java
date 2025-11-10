@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import secrets.Secrets;
+import db.dbSecrets;
 import utils.HttpUtil;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class EnvList {
     public static void listAllEnv(HttpServletRequest ignoredReq, HttpServletResponse resp, Map<String, String> params) throws IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        try (Connection conn = Secrets.getConnection()) {
+        try (Connection conn = dbSecrets.getConnection()) {
            Project proj = ProjectsDAO.getProjectBySlug(conn, params.get("projectSlug"));
             if (proj == null) {
                 HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_NOT_FOUND, "error", "Project not found.");

@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import secrets.Secrets;
+import db.dbSecrets;
 import utils.HttpUtil;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class SecretsList {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
 
-		try (Connection conn = Secrets.getConnection()) {
+		try (Connection conn = dbSecrets.getConnection()) {
 			String projectSlug = params.get("projectSlug");
 			String envName = params.get("env");
 			if (projectSlug == null || projectSlug.isEmpty()) {
