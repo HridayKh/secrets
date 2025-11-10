@@ -1,4 +1,4 @@
-package secrets;
+package db;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Secrets {
-	private static final Logger log = LogManager.getLogger(Secrets.class);
+public class dbSecrets {
+	private static final Logger log = LogManager.getLogger(dbSecrets.class);
 	public final static String DB_URL = "jdbc:mysql://db.HridayKh.in:3306/Secrets_DB";
 	public static final String DB_USER = System.getenv("SECRETS_DB_USER");
 	public static final String DB_PASS = System.getenv("SECRETS_DB_PASSWORD");
@@ -24,7 +24,7 @@ public class Secrets {
 		} catch (ClassNotFoundException e) {
 			log.catching(e);
 		}
-		return DriverManager.getConnection(Secrets.DB_URL, Secrets.DB_USER, Secrets.DB_PASS);
+		return DriverManager.getConnection(dbSecrets.DB_URL, dbSecrets.DB_USER, dbSecrets.DB_PASS);
 	}
 
 }

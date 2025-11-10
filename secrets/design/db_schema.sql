@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;
 
 CREATE TABLE IF NOT EXISTS `environments` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -17,9 +17,8 @@ CREATE TABLE IF NOT EXISTS `environments` (
   PRIMARY KEY (`id`),
   CONSTRAINT `uq_environment_project_name` UNIQUE (`project_id`, `name`),
   CONSTRAINT `fk_environments_project` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;
 
--- Stores encrypted secret values per environment
 CREATE TABLE IF NOT EXISTS `secrets` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `environment_id` INT NOT NULL,
@@ -32,22 +31,18 @@ CREATE TABLE IF NOT EXISTS `secrets` (
   CONSTRAINT `fk_secrets_environment` FOREIGN KEY (`environment_id`) REFERENCES `environments` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   INDEX `idx_secrets_environment` (`environment_id`),
   INDEX `idx_secrets_key` (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;
 
 CREATE TABLE IF NOT EXISTS `api_keys` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `project_id` INT NOT NULL,
-  `key` VARCHAR(128) NOT NULL UNIQUE,
-  `label` VARCHAR(64) NULL,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_used` DATETIME NULL,
-  `active` BOOLEAN NOT NULL DEFAULT TRUE,
+  `label` VARCHAR(255) NOT NULL,
+  `key` VARCHAR(64) NOT NULL UNIQUE,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_api_keys_project` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   INDEX `idx_api_keys_project` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+);
 
--- `user_id` and `project_id` are nullable because API actions may be unauthenticated user-wise.
 CREATE TABLE IF NOT EXISTS `audit_logs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `actor_type` ENUM('frontend_admin', 'backend_api') NOT NULL,
@@ -65,4 +60,4 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
   INDEX `idx_audit_timestamp` (`timestamp`),
   INDEX `idx_audit_actor` (`actor_identifier`),
   INDEX `idx_audit_project` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;

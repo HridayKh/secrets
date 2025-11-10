@@ -13,7 +13,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 
-@WebFilter("/v1/*")
+@WebFilter("/v1/projects/*")
 public class AuthFIlter implements Filter {
 
 	private static final Logger log = LogManager.getLogger(AuthFIlter.class);
@@ -24,6 +24,7 @@ public class AuthFIlter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
 		chain.doFilter(request, response);
 	}
 

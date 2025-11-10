@@ -2,6 +2,7 @@ package secrets;
 
 import java.io.IOException;
 
+import db.dbSecrets;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,11 +33,11 @@ public class CORSFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 
 		// https://api.HridayKh.in/secrets -> https://api.HridayKh.in
-		String front_host = Secrets.FRONT_HOST.split("/")[0] + "//" + Secrets.FRONT_HOST.split("/")[2];
+		String front_host = dbSecrets.FRONT_HOST.split("/")[0] + "//" + dbSecrets.FRONT_HOST.split("/")[2];
 //		String front_host = "http://localhost:5173";
 
 		res.setHeader("Access-Control-Allow-Origin", front_host);
-		res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+		res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
 		res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 		res.setHeader("Access-Control-Allow-Credentials", "true");
 		res.setHeader("Access-Control-Max-Age", "3600");

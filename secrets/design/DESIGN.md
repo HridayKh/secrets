@@ -7,20 +7,16 @@
 * These endpoints are meant to be used by your other applications (e.g., blog backend, CI, etc.).
 * They **only fetch** secrets and authenticate via an API key in the header.
 
-## Authentication
-
-**Header**:
-
-```http
-Authorization: ApiKey <api_key>
-```
-
-## **Endpoints**
-
-### **1. Get all secrets for an environment**
+## **Get all secrets for an environment**
 
 ```
 GET /v1/secrets/{projectSlug}/{env}
+```
+
+**Auth Header**:
+
+```http
+Authorization: Bearer <api_key>
 ```
 
 **Description:**
@@ -33,22 +29,6 @@ Fetches all decrypted secrets for a project environment.
   "DB_USER": "root",
   "DB_PASS": "hunter2",
   "API_KEY": "abcd1234"
-}
-```
-
-### **2. Get a single secret**
-
-```
-GET /v1/secrets/{projectSlug}/{env}/{secretKey}
-```
-
-**Description:**
-Fetches one specific secret by key.
-**Response:**
-
-```json
-{
-  "value": "hunter2"
 }
 ```
 
@@ -396,7 +376,7 @@ POST /v1/projects/{projectSlug}/apiKeys
 
 ```json
 {
-  "name": "ci-deploy"
+  "label": "ci-deploy"
 }
 ```
 
@@ -404,8 +384,6 @@ POST /v1/projects/{projectSlug}/apiKeys
 
 ```json
 {
-  "id": 3,
-  "name": "ci-deploy",
   "key_plaintext": "AbCdEfGh12345",
   "type": "success",
   "message": "API key created. Save the plaintext now; it will not be shown again."
@@ -427,8 +405,7 @@ GET /v1/projects/{projectSlug}/apiKeys
   "apiKeys": [
     {
       "id": 3,
-      "name": "ci-deploy",
-      "revoked": false
+      "label": "ci-deploy"
     }
   ],
   "type": "success",
@@ -446,7 +423,6 @@ DELETE /v1/projects/{projectSlug}/apiKeys/{keyId}
 
 ```json
 {
-  "result": "revoked",
   "type": "success",
   "message": "API key revoked."
 }
