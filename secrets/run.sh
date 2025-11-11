@@ -1,0 +1,23 @@
+#!/bin/bash
+clear
+set -e
+
+TOMCAT_HOME="/home/hridaykh/Code/Servers/apache-tomcat-11.0.13-custom"
+WAR_NAME="secrets"
+TARGET_WAR="target/$WAR_NAME.war"
+DEPLOY_PATH="$TOMCAT_HOME/webapps/$WAR_NAME.war"
+
+rm -rf target/
+
+echo "🧹 Building WAR (skip tests)..."
+# Skip cleaning if not needed, just package
+mvn package -DskipTests
+
+echo "📦 Deploying new WAR..."
+# Use mv instead of rm+cp for atomic replace (if on same filesystem)
+rm -rf $TOMCAT_HOME/webapps/$WAR_NAME.war
+rm -rf $TOMCAT_HOME/webapps/$WAR_NAME
+mv -f "$TARGET_WAR" "$DEPLOY_PATH"
+
+echo "🚀 Starting Tomcat..."
+exec "$TOMCAT_HOME/bin/catalina.sh" run
