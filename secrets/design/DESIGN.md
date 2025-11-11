@@ -7,10 +7,12 @@
 * These endpoints are meant to be used by your other applications (e.g., blog backend, CI, etc.).
 * They **only fetch** secrets and authenticate via an API key in the header.
 
-## **Get all secrets for an environment**
+## **Get all secrets for an environment in a project**
+
+> Note: An api key can be used with only one project so teh project is inferred from the key
 
 ```
-GET /v1/secrets/{projectSlug}/{env}
+GET /v1/secrets/{env}
 ```
 
 **Auth Header**:

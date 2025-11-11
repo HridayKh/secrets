@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +47,6 @@ public class KeysDAO {
 
 	public static int getProjectIdFromKeyHash(Connection conn, String keyHash) throws SQLException {
 		String sql = "SELECT * FROM `api_keys` where `key_hash` = ?";
-		ArrayList<String[]> keys = new ArrayList<>();
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, keyHash);
 			try (ResultSet rs = stmt.executeQuery()) {

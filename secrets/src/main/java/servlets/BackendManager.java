@@ -51,30 +51,13 @@ public class BackendManager {
 				return;
 			}
 
-			String projectSlug = params.get("projectSlug");
-			if(projectSlug == null || projectSlug.isBlank()) {
-				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error", "Missing project slug.");
-				return;
-			}
-
-			Project proj = db.ProjectsDAO.getProjectBySlug(conn, projectSlug);
-			if(proj == null) {
-				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_NOT_FOUND, "error", "Project not found.");
-				return;
-			}
-
-			if(proj.id != projectId) {
-				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_FORBIDDEN, "error", "API Key does not have access to this project.");
-				return;
-			}
-
 			String envName = params.get("env");
 			if(envName == null || envName.isBlank()) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_BAD_REQUEST, "error", "Missing environment name.");
 				return;
 			}
 
-			Env env = db.EnvsDAO.getEnvByProjIdAndName(conn, proj.id,  envName);
+			Env env = db.EnvsDAO.getEnvByProjIdAndName(conn, projectId,  envName);
 			if(env == null) {
 				HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_NOT_FOUND, "error", "Environment not found.");
 				return;
