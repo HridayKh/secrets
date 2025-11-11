@@ -11,7 +11,7 @@ public final class ApiConstants {
 	public static final String PROJECTS_LIST_ALL = "/v1/projects"; // GET
 
 	// BACKEND
-	public static final String BACKEND_GET_ALL_SECRETS = "/v1/secrets/{projectSlug}/{env}"; // GET
+	public static final String BACKEND_GET_ALL_SECRETS = "/v1/secrets/{env}"; // GET
 
 	// PROJECTS
 	public static final String PROJECTS_CREATE = "/v1/projects"; // POST
