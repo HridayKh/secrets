@@ -18,6 +18,7 @@ import servlets.keys.KeyDelete;
 import servlets.keys.KeyList;
 import servlets.projects.ProjectsCreate;
 import servlets.projects.ProjectsList;
+import servlets.projects.ProjectsSummary;
 import servlets.projects.ProjectsUpdate;
 import servlets.secrets.*;
 import utils.HttpUtil;
@@ -47,7 +48,7 @@ public class ApiServlet extends HttpServlet {
 		addRoute("GET", ApiConstants.PROJECTS_LIST_ALL, ProjectsList::listAllProjects);
 		addRoute("POST", ApiConstants.PROJECTS_CREATE, ProjectsCreate::createProject);
 		addRoute("PATCH", ApiConstants.PROJECTS_UPDATE, ProjectsUpdate::updateProject);
-		addRoute("GET", ApiConstants.PROJECTS_SUMMARY, (req, resp, params) -> HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_NOT_IMPLEMENTED, "error", "project summary endpoint not yet implemented but will be after environments and secrets."));
+		addRoute("GET", ApiConstants.PROJECTS_SUMMARY, ProjectsSummary::getProjectSummary);
 
 		// ENVIRONMENTS
 		addRoute("GET", ApiConstants.ENVS_LIST, EnvList::listAllEnv);
