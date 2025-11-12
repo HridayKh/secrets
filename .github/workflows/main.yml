@@ -11,7 +11,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
+      - name: Install and build React frontend
+        working-directory: auth-react
+        run: |
+          npm ci
+          npm run build
+  
+      - name: Copy React build to Java webapp
+        run: |
+          find auth/src/main/webapp -mindepth 1 -maxdepth 1 ! -name 'WEB-INF' -exec rm -rf {} +
+          if [ ! -d "auth-react/dist" ]; then
+            echo "ERROR: auth-react/dist does not exist!" >&2
+            exit 1
+          fi
+          cp -av auth-react/dist/. auth/src/main/webapp/
+
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
