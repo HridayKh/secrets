@@ -68,46 +68,13 @@ export default function Project() {
 				{!loading && !error && summary && (
 					<div className="card bg-black text-light">
 						<div className="card-body">
-							<div className="d-flex align-items-center mb-2">
-								<h3 className="card-title mb-0 me-2">{summary.name || projectSlug}</h3>
-								<button className="btn btn-sm btn-outline-info me-2" title="Edit Name" onClick={() => handleEditField('name', summary.name)}>
-									Edit
-								</button>
-							</div>
-							<div className="d-flex align-items-center mb-2">
-								<span className="me-2 text-secondary">{summary.description}</span>
-								<button className="btn btn-sm btn-outline-info me-2" title="Edit Description" onClick={() => handleEditField('description', summary.description)}>
-									Edit
-								</button>
-							</div>
-							<div className="d-flex align-items-center mb-2">
-								<span className="me-2 text-secondary">Slug: {summary.slug || projectSlug}</span>
-								<button className="btn btn-sm btn-outline-info me-2" title="Edit Slug" onClick={() => handleEditField('slug', summary.slug)}>
-									Edit
-								</button>
-							</div>
-
-							{/* Environments as tabs */}
-							<ul className="nav mb-3 mt-5">
-								<li className=" border-bottom p-0 m-0 opacity-50" style={{ minWidth: 0, flexGrow: 5 }}></li>
-								{(summary.envs || []).map((env, idx) => (<>
-									<li className={"d-flex align-items-center py-1 px-2 m-0 rounded-top border " + (idx === selectedEnvIdx ? "border-bottom-0" : "opacity-50")} key={env.name}>
-										<button
-											className="btn-dark btn rounded-0 m-0 px-1 py-0 rounded-top rounded-end-0"
-											type="button"
-											onClick={() => setSelectedEnvIdx(idx)}
-										>
-											{env.name}
-										</button>
-										<button className="btn-info btn rounded-0 m-0 px-1 py-0" title="Edit Env">(e)</button>
-										<button className="btn-danger btn rounded-0 m-0 px-1 py-0 rounded-top rounded-start-0" title="Delete Env">(d)</button>
-									</li>
-									<li className="border-bottom p-0 m-0 opacity-50" style={{ minWidth: 0, flexGrow: 1 }}></li>
-								</>))}
-								<li className="d-flex align-items-center p-1 m-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.5)' }}>
-									<button className="btn btn-sm btn-outline-success m-0" title="Add Environment">+</button>
-								</li>
-								<li className="border-bottom p-0 m-0 opacity-50" style={{ minWidth: 0, flexGrow: 5 }}></li>
+							<h3 className="card-title">{summary.name || projectSlug}</h3>
+							<p className="card-text text-secondary">{summary.description}</p>
+							<h5>Environments</h5>
+							<ul>
+								{(summary.envs || []).map((e) => (
+									<li key={e.name}>{e.name} — {Array.isArray(e.secrets) ? e.secrets.join(', ') : ''}</li>
+								))}
 							</ul>
 							<div className="tab-content bg-dark p-3 rounded border border-secondary">
 								<div className="tab-pane active show">
