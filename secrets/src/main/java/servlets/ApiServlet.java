@@ -70,7 +70,8 @@ public class ApiServlet extends HttpServlet {
 
 		// HEALTH
 		addRoute("GET", ApiConstants.HEALTH_CHECK, (req, resp, params) -> {
-			HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_OK, "success", "Secrets app is up and running.");
+			HttpUtil.sendSimpleJson(resp, HttpServletResponse.SC_OK, "success",
+					"Secrets app is up and running.");
 			log.info("Health Check Accessed");
 		});
 	}
@@ -84,8 +85,9 @@ public class ApiServlet extends HttpServlet {
 		String method = req.getMethod();
 		// trim the ending slash for consistency
 		String untrimmedPath = req.getRequestURI();
-		String path = untrimmedPath.charAt(untrimmedPath.length() - 1) == '/' && untrimmedPath.length() > 1 ?
-			untrimmedPath.substring(0, untrimmedPath.length() - 1) : untrimmedPath;
+		String path = untrimmedPath.charAt(untrimmedPath.length() - 1) == '/' && untrimmedPath.length() > 1
+				? untrimmedPath.substring(0, untrimmedPath.length() - 1)
+				: untrimmedPath;
 
 		// Remove context path if present
 		String contextPath = req.getContextPath();
@@ -147,6 +149,7 @@ public class ApiServlet extends HttpServlet {
 
 	@FunctionalInterface
 	private interface RouteHandler {
-		void handle(HttpServletRequest req, HttpServletResponse resp, Map<String, String> pathParams) throws IOException, ServletException;
+		void handle(HttpServletRequest req, HttpServletResponse resp, Map<String, String> pathParams)
+				throws IOException, ServletException;
 	}
 }

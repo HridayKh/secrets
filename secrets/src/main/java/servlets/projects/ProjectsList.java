@@ -22,7 +22,6 @@ public class ProjectsList {
 	public static void listAllProjects(HttpServletRequest ignoredReq, HttpServletResponse resp, Map<String, String> ignoredParams) throws IOException  {
 		resp.setContentType("application/json");
 		resp.setCharacterEncoding("UTF-8");
-		
 		try (Connection conn = dbSecrets.getConnection()) {
 			Project[] projects = db.ProjectsDAO.getAllProjects(conn);
 			JSONObject projectsJson = new JSONObject();
