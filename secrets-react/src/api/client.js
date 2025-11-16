@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_SECRETS_BACKEND || '';
+const API_BASE_URL = import.meta.env.VITE_SECRETS_BACKEND || 'https://api.HridayKh.in/secrets';
 
 export async function apiRequest({ path, method = 'GET', body, headers = {} }) {
 	const url = API_BASE_URL + path;

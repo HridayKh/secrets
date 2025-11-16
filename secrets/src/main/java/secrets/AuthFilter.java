@@ -16,9 +16,9 @@ import java.io.InputStreamReader;
 import java.net.*;
 
 @WebFilter("/v1/projects/*")
-public class AuthFIlter implements Filter {
+public class AuthFilter implements Filter {
 
-	private static final Logger log = LogManager.getLogger(AuthFIlter.class);
+	private static final Logger log = LogManager.getLogger(AuthFilter.class);
 	private static final String AUTH_COOKIE_NAME = "hridaykh_in_auth_token";
 	private static final String AUTH_ENDPOINT = "https://auth.HridayKh.in/v1/users/me";
 	private static final String AUTH_KEY_HEADER = "X-HridayKh-In-Auth-Key";

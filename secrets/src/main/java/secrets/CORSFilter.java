@@ -27,15 +27,15 @@ public class CORSFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-		throws IOException, ServletException {
+			throws IOException, ServletException {
 
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
 
 		// https://api.HridayKh.in/secrets -> https://api.HridayKh.in
 		String front_host = dbSecrets.FRONT_HOST.split("/")[0] + "//" + dbSecrets.FRONT_HOST.split("/")[2];
-//		String front_host = "http://localhost:5173";
-
+		// String front_host = "http://localhost:5173";
+		
 		res.setHeader("Access-Control-Allow-Origin", front_host);
 		res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
 		res.setHeader("Access-Control-Allow-Headers", "Content-Type");
