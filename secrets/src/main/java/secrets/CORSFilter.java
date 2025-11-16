@@ -12,11 +12,9 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter("/*")
 public class CORSFilter implements Filter {
 
 	private static final Logger log = LogManager.getLogger(CORSFilter.class);
@@ -35,7 +33,7 @@ public class CORSFilter implements Filter {
 		// https://api.HridayKh.in/secrets -> https://api.HridayKh.in
 		String front_host = dbSecrets.FRONT_HOST.split("/")[0] + "//" + dbSecrets.FRONT_HOST.split("/")[2];
 		// String front_host = "http://localhost:5173";
-		
+
 		res.setHeader("Access-Control-Allow-Origin", front_host);
 		res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
 		res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -45,7 +43,6 @@ public class CORSFilter implements Filter {
 			res.setStatus(HttpServletResponse.SC_OK);
 			return;
 		}
-
 		chain.doFilter(request, response);
 	}
 

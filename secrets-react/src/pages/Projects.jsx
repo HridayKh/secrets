@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { listProjects, createProject } from '../api/projects';
 import { useNavigate } from 'react-router-dom';
+import { withPrefix } from '@/main';
 
 const loginUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/login?redirect=';
 
@@ -46,12 +47,6 @@ export default function Projects() {
 	}, []);
 
 	const navigate = useNavigate();
-	function withPrefix(path) {
-		const routePrefix = import.meta.env.DEV ? '' : '/secrets';
-		if (!routePrefix) return path;
-		if (path === '/') return routePrefix + '/';
-		return `${routePrefix}${path.startsWith('/') ? '' : '/'}${path}`;
-	}
 
 	return (
 		<div className="bg-dark min-vh-100 text-light">
@@ -87,10 +82,10 @@ export default function Projects() {
 									role="button"
 									tabIndex={0}
 									style={{ cursor: 'pointer' }}
-									onClick={() => navigate(withPrefix(`/project/${p.slug}`))}
+									onClick={() => navigate(withPrefix(`/${p.slug}`))}
 									onKeyDown={(e) => {
 										if (e.key === 'Enter' || e.key === ' ') {
-											navigate(withPrefix(`/project/${p.slug}`));
+											navigate(withPrefix(`/${p.slug}`));
 										}
 									}}
 								>
