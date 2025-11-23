@@ -13,19 +13,19 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install and build React frontend
-        working-directory: auth-react
+        working-directory: secrets-react
         run: |
           npm ci
           npm run build
   
       - name: Copy React build to Java webapp
         run: |
-          find auth/src/main/webapp -mindepth 1 -maxdepth 1 ! -name 'WEB-INF' -exec rm -rf {} +
-          if [ ! -d "auth-react/dist" ]; then
-            echo "ERROR: auth-react/dist does not exist!" >&2
+          find secrets/src/main/webapp -mindepth 1 -maxdepth 1 ! -name 'WEB-INF' -exec rm -rf {} +
+          if [ ! -d "secrets-react/dist" ]; then
+            echo "ERROR: secrets-react/dist does not exist!" >&2
             exit 1
           fi
-          cp -av auth-react/dist/. auth/src/main/webapp/
+          cp -av secrets-react/dist/. secrets/src/main/webapp/
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -67,7 +67,7 @@ jobs:
 
       - name: Deploy to Tomcat via Manager
         run: |
-          if [ ! -f "${{ github.workspace }}/auth/target/auth.war" ]; then
+          if [ ! -f "${{ github.workspace }}/secrets/target/secrets.war" ]; then
             echo "WAR file not found!"
             exit 1
           fi
