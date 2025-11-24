@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProjectSummary, updateProject } from '../api/projects';
-import { withPrefix } from 'src/main';
-import { loginUrlBase } from './Projects';
-import { getSecretValue } from '../api/secrets';
+import { withPrefix } from '../main.jsx';
+import { getSecretValue } from '../api/secrets.js';
 
 export default function Project() {
 	const { projectSlug } = useParams();
@@ -11,6 +10,7 @@ export default function Project() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [selectedEnvIdx, setSelectedEnvIdx] = useState(0);
+	const loginUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/login?redirect=';
 
 	useEffect(() => {
 		async function load() {

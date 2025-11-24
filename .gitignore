@@ -24,12 +24,12 @@ replay_pid*
 .vscode/
 
 # Build artifacts and directories
-/node_modules/
-/build/
-/dist/
-/target/
-/out/
-/local_testing/
+node_modules/
+build/
+dist/
+target/
+out/
+local_testing/
 .react-router/
 
 # Maven-specific files

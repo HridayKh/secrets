@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { listProjects, createProject } from '../api/projects';
+import { useEffect, useState } from 'react';
+import { listProjects, createProject } from '../api/projects.js';
 import { Link, useNavigate } from 'react-router-dom';
-import { withPrefix } from 'src/main';
+import { withPrefix } from '../main.jsx';
 
-export const loginUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/login?redirect=';
-export const logoutUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/logout?redirect=' + loginUrlBase + encodeURIComponent(window.location.origin + withPrefix('/'));
 
 export default function Projects() {
 	const [projects, setProjects] = useState([]);
 	const [creating, setCreating] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const loginUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/login?redirect=';
+	const logoutUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/logout?redirect=' + loginUrlBase + encodeURIComponent(window.location.origin + withPrefix('/'));
 
 	useEffect(() => {
 		async function load() {
@@ -129,6 +129,3 @@ export default function Projects() {
 		</div>
 	);
 }
-
-
-
