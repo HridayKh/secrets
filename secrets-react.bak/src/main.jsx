@@ -4,10 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './index.css';
 
 export function withPrefix(path) {
+	console.log('import.meta.env:', import.meta.env);
 	const routePrefix = import.meta.env.DEV ? '' : '/secrets';
 	if (!routePrefix) return path;
 	if (path === '/') return routePrefix + '/';
 	return `${routePrefix}${path.startsWith('/') ? '' : '/'}${path}`;
+	// return "" + path; // Temporary fix for routing issue in Vite dev mode
 }
 import Projects from "./pages/Projects.jsx";
 import Project from "./pages/Project.jsx";

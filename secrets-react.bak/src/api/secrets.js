@@ -1,6 +1,6 @@
 import { apiRequest } from './client';
 
-const u = (projectSlug, env) => { `/v1/projects/${encodeURIComponent(projectSlug)}/envs/${encodeURIComponent(env)}/secrets` };
+const u = (projectSlug, env) => { return `/v1/projects/${encodeURIComponent(projectSlug)}/envs/${encodeURIComponent(env)}/secrets`; };
 
 export async function listSecretKeys(projectSlug, env) {
 	return apiRequest({

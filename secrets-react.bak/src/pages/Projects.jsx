@@ -1,52 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { listProjects, createProject } from '../api/projects';
-import { useNavigate } from 'react-router-dom';
-import { withPrefix } from '@/main';
+import { Link, useNavigate } from 'react-router-dom';
+import { withPrefix } from 'src/main';
 
-const loginUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/login?redirect=';
+export const loginUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/login?redirect=';
+export const logoutUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/logout?redirect=' + loginUrlBase + encodeURIComponent(window.location.origin + withPrefix('/'));
 
 export default function Projects() {
 	const [projects, setProjects] = useState([]);
 	const [creating, setCreating] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	
+
 	useEffect(() => {
-		let mounted = true;
-
 		async function load() {
-			setLoading(true);
-			setError(null);
-			try {
-				const res = await listProjects();
+			const res = await listProjects();
 
-				if (res && res.status === 401) {
-					const redirectTo = window.location.href;
-					window.location.href = loginUrlBase + encodeURIComponent(redirectTo);
-					return;
-				}
-
-				if (res && res.status === 403) {
-					throw new Error("Request failed (403 Forbidden) <br/> " + (res.message || "Not authorized to access this app."));
-				}
-
-				if (!res.ok) {
-					// show backend message or generic
-					throw new Error(res.message || `Request failed (${res.status})`);
-				}
-
-				if (mounted) setProjects((res.data && res.data.projects) || res.projects || []);
-			} catch (err) {
-				if (mounted) setError(err.message || String(err));
-			} finally {
-				if (mounted) setLoading(false);
+			if (res && res.status === 401) {
+				const redirectTo = window.location.href;
+				window.location.href = loginUrlBase + encodeURIComponent(redirectTo);
+				return;
 			}
+
+			if (res && res.status === 403) {
+				setError("Request failed (403 Forbidden) <br/> " + (res.message || "Not authorized to access this app."));
+			}
+
+			if (!res.ok) {
+				setError(res.message || `Request failed (${res.status})`);
+			}
+			setProjects((res.data && res.data.projects) || res.projects || []);
+			setLoading(false);
 		}
 
 		load();
-		return () => {
-			mounted = false;
-		};
 	}, []);
 
 	const navigate = useNavigate();
@@ -54,7 +41,8 @@ export default function Projects() {
 	return (
 		<div className="bg-dark min-vh-100 text-light">
 			<main className="container py-4">
-				<h1 className="mt-3 mb-4 text-center text-white py-2 rounded">HridayKh.in Secrets</h1>
+				<h1 className="m-0 p-0 mt-3 text-center text-white py-2 rounded">HridayKh.in Secrets</h1>
+				<Link to={logoutUrlBase} className="m-0 mb-4 text-white py-2 rounded btn btn-danger">Logout</Link>
 
 				{loading && (
 					<div className="d-flex justify-content-center my-5">
