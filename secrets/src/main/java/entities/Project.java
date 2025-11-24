@@ -28,12 +28,12 @@ public class Project {
     public String toString() {
     return "Project{" +
             "id=" + id +
-            ", slug='" + slug + '\'' +
-            ", name='" + name + '\'' +
-            ", description='" + description + '\'' +
-            ", createdAt='" + createdAt + '\'' +
-            ", updatedAt='" + updatedAt + '\'' +
-            '}';
+            ", slug='" + slug +
+            "', name='" + name +
+            "', description='" + description +
+            "', createdAt='" + createdAt +
+            "', updatedAt='" + updatedAt +
+            "'}";
     }
 
     public static Project parseProject(ResultSet rs) {
