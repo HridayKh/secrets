@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import { getProjectSummary, updateProject } from '../api/projects';
 import { withPrefix } from '../main.jsx';
 import { getSecretValue } from '../api/secrets.js';
@@ -10,6 +10,7 @@ export default function Project() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [selectedEnvIdx, setSelectedEnvIdx] = useState(0);
+	const navigate = useNavigate();
 	const loginUrlBase = (import.meta.env.VITE_AUTH_BACKEND || 'https://auth.HridayKh.in') + '/login?redirect=';
 
 	useEffect(() => {
@@ -173,6 +174,15 @@ export default function Project() {
 						<span className="col-auto text-secondary text-center m-0">Slug: {summary.slug || projectSlug}</span>
 						<button className="col-auto btn btn-sm btn-outline-info py-0 px-1 m-0" title="Edit Slug" onClick={() => handleEditField('slug', summary.slug)}>
 							Edit
+						</button>
+					</div>
+
+					{/* Manage Keys */}
+					<div className="row align-items-center justify-content-center my-3">
+						<button className="col-auto btn btn-primary" title="Manage Project Api Keys" onClick={() => {
+							navigate(withPrefix(`/${projectSlug}/keys`));
+						}}>
+							Manage Api Keys
 						</button>
 					</div>
 
