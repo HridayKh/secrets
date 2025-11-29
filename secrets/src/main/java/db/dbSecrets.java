@@ -6,6 +6,9 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class dbSecrets {
 	public final static String DB_URL = "jdbc:mysql://db.HridayKh.in:3306/Secrets_DB";
 	public static final String DB_USER = System.getenv("SECRETS_DB_USER");
@@ -15,6 +18,8 @@ public class dbSecrets {
 	// public static final String BACK_HOST = System.getenv("VITE_SECRETS_BACKEND");
 
 	// public final static String PROD = System.getenv("VITE_PROD");
+
+	private static final Logger log = LogManager.getLogger(dbSecrets.class);
 
 	private static final HikariDataSource dataSource;
 	static {
@@ -34,6 +39,12 @@ public class dbSecrets {
 
 	public static Connection getConnection() throws SQLException {
 		return dataSource.getConnection();
+	}
+
+	public static void shutdown() {
+		if (dataSource != null && !dataSource.isClosed())
+			dataSource.close();
+		log.info("Database connection pool shut down.");
 	}
 
 }

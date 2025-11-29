@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import './index.css';
 import Projects from "./pages/Projects.jsx";
 import Project from "./pages/Project.jsx";
@@ -23,7 +23,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 		<Route path={withPrefix('/')} element={<Projects />} />
 		<Route path={withPrefix('/:projectSlug')} element={<Project />} />
 		<Route path={withPrefix('/:projectSlug/keys')} element={<Keys />} />
-		<Route path={withPrefix('/_u')} element={<h1 className="mt-5 text-center"> Unimplemented Page </h1>} />
-		<Route path={withPrefix('*')} element={<h1 className="mt-5 text-center"> NotFound Page </h1>} />
+		<Route path={withPrefix('/_u')} element={<>
+			<Link to={withPrefix('/')} className="btn btn-secondary mt-3 ms-3">Home Page</Link>
+			<h1 className="mt-5 text-center"> Unimplemented Page </h1>
+		</>} />
+		<Route path={withPrefix('*')} element={<>
+			<Link to={withPrefix('/')} className="btn btn-secondary mt-3 ms-3">Home Page</Link>
+			<h1 className="mt-5 text-center"> Not Found Page </h1>
+		</>} />
 	</Routes></Router></React.StrictMode>
 );
